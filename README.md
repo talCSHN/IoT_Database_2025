@@ -134,4 +134,35 @@ IoT 개발자 DB 저장소
 
 ## 2일차
 - SQL 기초
-    - ...
+    - 개요
+        - 데이터베이스에 있는 데이터를 추출 및 처리작업을 위해 사용되는 프로그래밍언어
+        - 일반 프로그래밍 언어와의 차이점
+            - DB에서만 문제 해결 가능
+            - 입출력 모두 DB에서 테이블로 처리
+            - 컴파일 및 실행은 DBMS가 수행
+        - DML(데이터 조작어) - 검색, 삽입, 수정, 삭제
+            - SELECT, INSERT, UPDATE, DELETE
+        - DDL(데이터 정의어)
+            - CREATE, ALTER, DROP
+        - DCL(데이터 제어어)
+            - GRANT, REVOKE
+
+    - DML 중 SELECT
+        ```sql
+        -- SELECT문 기본 문법
+        SELECT [ALL|DISTINCT] 컬럼명(들)
+          FROM 테이블명(들)
+         [WHERE 검색조건(들)]
+         [GROUP BY 속성이름(들)]
+         [HAVING 집계함수검색조건(들)]
+         [ORDER BY 정렬할 속성(들) [ASC|DESC]]
+         [WITH ROLLUP]
+        ```
+
+        - 쿼리 연습(정렬까지) : [SQL](./day02/db02_select_query_practice.sql)
+        - 쿼리 연습(집계함수부터) : [SQL](./day02/db03_select_집계함수부터.sql)
+
+## 3일차
+- SQL 기초
+    - DDL
+    - DML 중 INSERT, UPDATE, DELETE

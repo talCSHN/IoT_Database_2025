@@ -77,6 +77,11 @@ SELECT orderid AS '주문번호'
 -- DATEDIFF : D-day 계산.
 SELECT DATEDIFF(SYSDATE(), '2025-02-03');
 
+-- Formatting, 1000 단위마다 , 넣기
+SELECT bookid
+	 , FORMAT(price, 0) AS price
+  FROM MyBook;
+
 -- NULL -> Python의 None과 동일. 모든 다른 프로그래밍 언어에서는 전부 NULL
 -- 금액이 NULL일때 발생되는 현상
 SELECT price - 5000
@@ -88,4 +93,20 @@ SELECT SUM(price) AS '합산은 그닥 문제없음'
 	 , AVG(price) AS '평균은 NULL이 빠져서 꼬임'
      , COUNT(*)	  AS '모든 행의 갯수는 일치'
      , COUNT(price) AS 'NULL 값은 갯수에서 빠짐'
+  FROM MyBook;
+
+-- NULL값 확인. NULL은 비교연산자(=, >, <, <>, ...) 사용 불가.
+-- IS 키워드 사용
+SELECT *
+  FROM MyBook
+ WHERE price IS NOT NULL;
+ 
+SELECT *
+  FROM MyBook
+ WHERE bookname IS NULL; -- 반대는 IS NOT NULL
+ 
+-- IFNULL 함수
+SELECT bookid
+	 , bookname
+     , IFNULL(price, 0)
   FROM MyBook;

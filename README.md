@@ -149,7 +149,7 @@ IoT 개발자 DB 저장소
         - DCL(데이터 제어어)
             - GRANT, REVOKE
 
-    - DML 중 SELECT
+    - DML 중 SELECT : [SQL](./day03/db02_dml_query.sql)
         ```sql
         -- SELECT문 기본 문법
         SELECT [ALL|DISTINCT] 컬럼명(들)
@@ -163,6 +163,35 @@ IoT 개발자 DB 저장소
 
         - 쿼리 연습(정렬까지) : [SQL](./day02/db02_select_query_practice.sql)
         - 쿼리 연습(집계함수부터) : [SQL](./day02/db03_select_집계함수부터.sql)
+
+    - DML 중 INSERT, UPDATE, DELETE : [SQL](./day03/db02_dml_query.sql)
+
+        ```sql
+        -- 삽입
+        INSERT INTO 테이블명 (컬럼리스트)
+        VALUES (값리스트);
+
+        -- 다른 테이블의 데이터 가져오기
+        INSERT INTO 테이블명 (컬럼리스트)
+        SELECT 컬럼리스트 FROM 테이블명
+        [WHERE 조건];
+
+        -- 수정
+        UPDATE 테이블명 SET
+            속성 = 값
+          , 속성 = 값
+         WHERE 조건;
+
+        -- 삭제
+        DELETE FROM 테이블명
+         WHERE 조건;
+        ```
+
+        - INSERT 데이터 삽입, 새로운 데이터 생성
+        - UPDATE 데이터 수정, 기존 데이터를 변경
+        - DELETE 데이터 삭제
+        - `UPDATE와 DELETE는 WHERE절 없이 사용하면 문제발생 소지`
+            - 트랜잭션을 사용하지 않으면 복구가 어려움. 조심할 것
 
 ## 3일차
 - Visual Studio Code에서 MySQL 연동
@@ -200,7 +229,8 @@ IoT 개발자 DB 저장소
             - Date(3) - 2025-02-27 까지 저장하는 타입
             - Datetime(8) - 2025-02-27 10:46:24 까지 저장하는 타입
             - JSON(8) - json 타입 데이터 저장
-    - DDL 중 CREATE
+
+    - DDL 중 CREATE : [SQL](./day03/db01_ddl_query.sql)
 
         ```sql
         CREATE DATABASE 데이터베이스명
@@ -214,6 +244,7 @@ IoT 개발자 DB 저장소
         );
         ```
 
+        - DDL문은 Workbench에서 마우스 클릭으로도 많이 사용
         - 테이블 생성 후 확인
             1. 메뉴 Database > Reverse Engineer(데이터베이스 ERD 변경) 클릭
             2. Select Schemas to Reverse Engineer에서 DB 체크
@@ -222,7 +253,7 @@ IoT 개발자 DB 저장소
 
             <img src='./images/db004.png' width='600'>
 
-    - DDL 중 ALTER
+    - DDL 중 ALTER : [SQL](./day03/db01_ddl_query.sql)
 
          ```sql
         ALTER DATABASE 데이터베이스명
@@ -236,15 +267,47 @@ IoT 개발자 DB 저장소
 
         - 테이블 수정
 
-    - DML 중 DROP
+    - DML 중 DROP : [SQL](./day03/db01_ddl_query.sql)
 
         ```sql
         DROP [DATABASE|TABLE|INDEX|...] 데이터베이스
         ```
+        - 테이블 삭제 -> 복구 안됨. 백업 필수
 
 - SQL 고급
-    - 내장함수, NULL
+    - 내장함수, NULL : [SQL](./day03/db03_sql_고급.sql)
+        - 수학 함수, 문자열 함수, 날짜 함수 등
 
 ## 4일차
 - SQL 고급
-    - 행번호 출력...
+    - 행번호 출력 : [SQL](./day04/db01_sql고급.sql)
+        - LIMIT, OFFSET만 잘 써도 괜찮음
+        - 행번호가 필요한 경우도 있음
+
+- SubQuery 고급 : [SQL](./day04/db02_sql고급_서브쿼리.sql)
+    - WHERE절 - 단일값(비교연산), 다중행(ALL|ANY|EXISTS|IN|NOT IN)
+    - SELECT절 - 무조건 스칼라값
+    - From - 인라인뷰. 하나의 테이블처럼 사용 - 가상테이블
+
+- SQL 고급
+    - 뷰 : [SQL](./day04/db03_sql고급_뷰.sql)
+        - 자주 사용할 쿼리로 만들어진 가상 테이블을 계속 사용하기 위해서 만든 개체
+        - 입력, 수정도 가능. 조인된 뷰는 불가능
+        - 보안적, 재사용성, 독립성을 위해서 사용
+    - 인덱스 : [SQL](./day04/db04_sql고급_인덱스.sql)
+        - 빠른 검색을 위해서 사용하는 개체
+        - 클러스터 인덱스 : 기본키에 자동으로 생성되는 인덱스(테이블당 1개)
+        - 논클러스터(보조) 인덱스 : 수동으로 컬럼들에 생성할 수 있는 인덱스(여러개 가능)
+        - 주의점
+            - WHERE절에 자주 사용하는 컬럼에 인덱스 생성
+            - JOIN문에 사용하는 컬럼(PK 포함) 인덱스 생성
+            - 테이블당 인덱스 개수는 5개 미만 생성할 것(너무 많으면 성능 저하)
+            - 자주 변경되는 컬럼에는 인덱스 생성하지 말 것(성능 저하)
+            - NULL값이 많은 컬럼에 인덱스 생성하지 말 것(성능 저하)
+
+- 데이터베이스 프로그래밍
+    - 저장 프로시저 : [sql](./day04/db05_저장프로시저1.sql)
+        - 너무 많은 쿼리로 일을 처리해야 할 때, Python 등 프로그램에서 구현하면 매우 복잡함
+        - 저장 프로시저 하나로 프로그램 구현 시 코드가 매우 짧아짐
+        - 개발 솔루션화, 구조화 해서 손쉽게 DB처리를 가능하게 하기 위해
+        - 예제 : [SQL](./day04/db05_저장프로시저2.sql)

@@ -1,0 +1,25 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html>
+	<head>마당서점</head>
+	<body>
+	<h2><blockquote> 마당서점 도서목록 </blockquote></h2>
+	<table border='1'>
+		<thead>
+			<tr>
+				<th>책이름</th>
+				<th>출판사</th>
+				<th>가격</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in book_list %}
+			<tr>
+				<td><a href="/view?id={{i[0]}}">{{ i[1] }}</a></td>
+				<td>{{ i[2] }}</td>
+				<td>{{ i[3] }}</td>
+			</tr>
+			{% endfor%}
+		</tbody>
+	</table>
+	</body>
+</html>

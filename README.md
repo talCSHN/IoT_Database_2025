@@ -416,5 +416,30 @@ IoT 개발자 DB 저장소
     <img src = "./images/db006.png" width="800">
 
 ## 9일차
-- tkinkter DB연동 GUI앱 개발
+- tkinkter DB연동 GUI앱 개발 : [SQL](./day09/students_regapp.py)
+    1. MySQL madang DB 사용하는 madang 사용자 생성, 권한
+    2. madang DB에 students 테이블 생성 및 더미데이터 추가
+    ```sql
+    DROP TABLE IF EXISTS students;
+    CREATE TABLE students (
+        std_id  INTEGER PRIMARY KEY AUTO_INCREMENT, -- AUTO_INCREMENT는 MySQL에서만 동작하는 옵션
+        std_name  VARCHAR(100) NOT NULL,
+        std_mobile  VARCHAR(20) NULL,
+        std_regyear  INT NOT NULL
+    );
+
+    -- 더미데이터 추가
+    INSERT INTO students (std_name, std_mobile, std_regyear)
+    VALUES ('홍길동', '010-9999-8888', 2020);
+    ```
+    3. tkinter 템플릿 코드 작성 - 기본적인 GUI앱 틀
+    
+    <img src="./images/db007.png" width="700">
+
+    4. DB CRUD 함수 구현
+
+    <img src="./images/db008.png" widht="700">    
+
+- 데이터베이스 연습
+    - SQL, 모델링 연습
 - 코딩테스트
